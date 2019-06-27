@@ -37,6 +37,10 @@ public class BinaryTree {
 		return frequency;
 	}
 	
+	public char getCharacter() {
+		return caracter;
+	}
+	
 	public void showTreeOnConsole(BinaryTree tree) {
 		if(tree == null) return;
 		showTreeOnConsole(tree.right);
@@ -63,8 +67,6 @@ public class BinaryTree {
 		int[] posNode = {posX, posY};
 		int[] posLeftNode = {posX - 200, posY + 200};
 		int[] posRightNode = {posX + 200, posY + 200};
-		System.out.println(posX);
-		System.out.println(posY);
 		Line rightLine = new Line(posNode[0], posNode[1], posRightNode[0], posRightNode[1]);
 		Line leftLine = new Line(posNode[0], posNode[1], posLeftNode[0], posLeftNode[1]);
 		rightLine.setStroke(Color.RED);
@@ -79,7 +81,7 @@ public class BinaryTree {
 		Circle nodeCircle = new Circle(posX, posY, 35);
         nodeCircle.setStroke(Color.BLACK);
         //nodeCircle.setFill(Paint.valueOf("#15ff00"));
-        nodeCircle.setFill(null);
+        nodeCircle.setFill(Color.GREENYELLOW);
         nodeCircle.setStrokeWidth(1);
         Text nodeText = new Text (Integer.toString(frequency)+ Character.toString(caracter));
         StackPane graphicNode = new StackPane();

@@ -15,6 +15,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.io.*;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Scanner;;
 
 
@@ -22,15 +28,20 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+
+
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Enter your string: ");
 		String text = keyboard.nextLine();
 		TextFile file = new TextFile(text);
 		HuffmanTree compressionAlgorithm = new HuffmanTree();
-		compressionAlgorithm.mountTree(file.getFrequency());
+		compressionAlgorithm.compressFile(file);
 		BinaryTree huffmanTree = compressionAlgorithm.getTree();
 		huffmanTree.showTreeOnConsole(huffmanTree);
 		keyboard.close();
+		
+
+		System.out.println(compressionAlgorithm.getCompressedString());
 		
 		
 		
@@ -38,7 +49,7 @@ public class Main extends Application {
         ScrollPane sp = new ScrollPane();
    
         sp.setPannable(true); // it means that the user should be able to pan the viewport by using the mouse.
-        Scene scene = new Scene(sp, 100000, 100000);
+        Scene scene = new Scene(sp, 1500, 500);
         huffmanTree.showGraphicTree(huffmanTree, root, 10000, 200);
 
         sp.setContent(root);
