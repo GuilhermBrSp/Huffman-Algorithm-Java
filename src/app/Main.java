@@ -43,12 +43,14 @@ public class Main extends Application {
 		BinaryTree huffmanTree = compressionAlgorithm.getTree();
 		
 		// exibindo a arvore montada no console
+		System.out.println("Exibindo Arvore de Huffman no console: ");
 		huffmanTree.showTreeOnConsole(huffmanTree, 0);
 		
 
 		System.out.println("Representacao Binaria do seu arquivo comprimido: \n" + compressionAlgorithm.getCompressedBitString());
 		System.out.println("\n Taxa de Compressao (levando em conta que cada caractere em java tem 2 bytes): ");
 		System.out.println(compressionAlgorithm.getCompressionRatio()+"%");
+		System.out.println("Exibindo Arvore de Huffman no painel grafico...");
 		
 		
 		
