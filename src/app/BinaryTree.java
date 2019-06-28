@@ -21,15 +21,15 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class BinaryTree {
-	BinaryTree left;
-	int frequency;
-	char caracter;
-	BinaryTree right;
+	private BinaryTree left;
+	private int frequency;
+	private char character;
+	private BinaryTree right;
 	
-	public BinaryTree(BinaryTree nodeLeft, int nodefrequency, char nodeCaracter, BinaryTree nodeRight) {
+	public BinaryTree(BinaryTree nodeLeft, int nodefrequency, char nodeCharacter, BinaryTree nodeRight) {
 		left = nodeLeft;
 		frequency = nodefrequency;
-		caracter = nodeCaracter;
+		character = nodeCharacter;
 		right = nodeRight;
 	}
 	
@@ -38,32 +38,48 @@ public class BinaryTree {
 	}
 	
 	public char getCharacter() {
-		return caracter;
+		return character;
 	}
 	
-	public void showTreeOnConsole(BinaryTree tree) {
+	public BinaryTree getRightTree() {
+		return right;
+	}
+	
+	public BinaryTree getLeftTree() {
+		return left;
+	}
+	
+	
+	// exibe a arvore dada no terminal
+	public void showTreeOnConsole(BinaryTree tree, int space) {
 		if(tree == null) return;
-		showTreeOnConsole(tree.right);
-		System.out.println("(" + tree.frequency + " | " + tree.caracter + ")");
-		showTreeOnConsole(tree.left);
+		showTreeOnConsole(tree.getRightTree(), space + 7);
+		for(int i = 0; i <= space; i++)
+			System.out.print(" ");
+		System.out.println("(" + tree.getFrequency() + " | " + tree.getCharacter() + ")");
+		showTreeOnConsole(tree.getLeftTree(), space + 7);
 	}
 	
+	// monta a estrutura da arvore com os nos e com as linhas e os exibe na interface grafica
 	public void showGraphicTree(BinaryTree tree, Pane pane, int posX, int posY) {
 		showGraphicLines(tree, pane, posX + 35, posY + 35);
 		showGraphicNode(tree, pane, posX, posY);
 	}
 	
+	// monta e exibe um no na interface grafica
 	public void showGraphicNode(BinaryTree tree, Pane pane, int posX, int posY) {
 		if(tree == null) return;
 		StackPane graphicNode = tree.getGraphicNode(posX, posY);
 		pane.getChildren().add(graphicNode);
-		showGraphicNode(tree.left, pane, posX - 200, posY + 200);
-		showGraphicNode(tree.right, pane, posX + 200, posY + 200);	
+		showGraphicNode(tree.getLeftTree(), pane, posX - 200, posY + 200);
+		showGraphicNode(tree.getRightTree(), pane, posX + 200, posY + 200);	
 	}
 	
-	public void showGraphicLines(BinaryTree tree, Pane pane, int posX, int posY) {
-		
-		if (tree.right == null && tree.left == null) return;
+	// monta e exibe uma linha entre dois nos na interface grafica
+	// linha azul representa 1
+	// linha vermelha representa 0
+	private void showGraphicLines(BinaryTree tree, Pane pane, int posX, int posY) {
+		if (tree.getRightTree() == null && tree.getLeftTree() == null) return;
 		int[] posNode = {posX, posY};
 		int[] posLeftNode = {posX - 200, posY + 200};
 		int[] posRightNode = {posX + 200, posY + 200};
@@ -73,17 +89,18 @@ public class BinaryTree {
 		leftLine.setStroke(Color.BLUE);
 		pane.getChildren().add(rightLine);
 		pane.getChildren().add(leftLine);
-		showGraphicLines(tree.left, pane, posX - 200, posY + 200);
-		showGraphicLines(tree.right, pane, posX + 200, posY + 200);	
+		showGraphicLines(tree.getLeftTree(), pane, posX - 200, posY + 200);
+		showGraphicLines(tree.getRightTree(), pane, posX + 200, posY + 200);	
 	}
 	
-	public StackPane getGraphicNode(int posX, int posY) {
+	// monta um no de arvore visualmente e retorna o no
+	 private StackPane getGraphicNode(int posX, int posY) {
 		Circle nodeCircle = new Circle(posX, posY, 35);
         nodeCircle.setStroke(Color.BLACK);
         //nodeCircle.setFill(Paint.valueOf("#15ff00"));
         nodeCircle.setFill(Color.GREENYELLOW);
         nodeCircle.setStrokeWidth(1);
-        Text nodeText = new Text (Integer.toString(frequency)+ Character.toString(caracter));
+        Text nodeText = new Text (Integer.toString(frequency)+" " +  Character.toString(character));
         StackPane graphicNode = new StackPane();
         graphicNode.getChildren().addAll(nodeCircle, nodeText);
     	graphicNode.setLayoutX(posX);

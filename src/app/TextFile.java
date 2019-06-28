@@ -1,8 +1,9 @@
 package app;
 
+// esta classe inicialmente seria usada para representar um arquivo lido pelo programa
 public class TextFile {
-	String content;
-	int[] frequency;
+	private String content;
+	private int[] frequency;
 	
 	public TextFile(String fileContent) {
 		content = fileContent;
